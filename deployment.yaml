@@ -1,0 +1,57 @@
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  namespace: default
+  name: vikas-v1
+  labels:
+    test: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      test: v1
+  template:
+    metadata:
+      labels:
+        test: v1
+        version: v0.0.1
+    spec:
+      containers:
+      - name: vikas
+        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vikas-v1
+  namespace: default
+spec:
+  ports:
+  - name: http
+    port: 80
+  selector:
+    test: v1
+  type: ClusterIP
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: vikas
+  namespace: default
+  annotations:
+    field.cattle.io/description: This is a application canary and blue-green test
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/max-conn-amount: "10"
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+  - host: eks1-vikas.k8slab.cf
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: vikas-v1
+          servicePort: http
