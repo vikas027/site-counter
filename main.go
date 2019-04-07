@@ -14,16 +14,8 @@ var (
 )
 
 func hello(w http.ResponseWriter, r *http.Request) {
-	hostname, err := os.Hostname()
-	if err != nil {
-		panic(err)
-	}
+	hostname, _ := os.Hostname()
 	addrs, _ := net.LookupIP(hostname)
-	for _, addr := range addrs {
-	    if ipv4 := addr.To4(); ipv4 != nil {
-	        fmt.Println("IPv4: ", ipv4)
-	    }
-	}
 
 	if r.URL.Path == "/favicon.ico" {
 		io.WriteString(w, "favicon")
@@ -33,7 +25,12 @@ func hello(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		io.WriteString(w, "Redis is unhappy")
 	} else {
-		io.WriteString(w, fmt.Sprintln(hostname, " - ", addrs, " - " , "View Count: ", count))
+		if os.Getenv("SHOW_IP") == "false" {
+			io.WriteString(w, fmt.Sprintln(hostname, " - " , "View Count: ", count))
+		} else {
+			io.WriteString(w, fmt.Sprintln(hostname, " - ", addrs, " - " , "View Count: ", count))
+		}
+
 	}
 }
 
