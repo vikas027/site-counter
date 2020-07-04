@@ -1,10 +1,127 @@
-hash: 1fbbbaae27950c3e099c76855f49a209d2cfef2ddc80d6ae9f6bd562034a93f0
-updated: 2016-09-13T17:46:24.957911808-07:00
+hash: 0f74367092af22616c885db69c669c9caa22a9312f4e84c5bd94065e3a12d69b
+updated: 2020-07-04T22:21:32.780543+10:00
 imports:
+- name: github.com/golang/protobuf
+  version: d04d7b157bb510b1e0c10132224b616ac0e26b17
+  subpackages:
+  - proto
+  - ptypes
+  - ptypes/any
+  - ptypes/duration
+  - ptypes/timestamp
+- name: github.com/newrelic/go-agent
+  version: 22cc53ead2ca0212531325fedc69c68c1abdcaed
+  subpackages:
+  - v3/internal
+  - v3/internal/cat
+  - v3/internal/com_newrelic_trace_v1
+  - v3/internal/jsonx
+  - v3/internal/logger
+  - v3/internal/sysinfo
+  - v3/internal/utilization
+  - v3/newrelic
+- name: golang.org/x/net
+  version: 4c5254603344ea4a8ae4bed7e296a9588303e14f
+  subpackages:
+  - http/httpguts
+  - http2
+  - http2/hpack
+  - idna
+  - internal/timeseries
+  - trace
+- name: golang.org/x/sys
+  version: ddb9806d33aed8dbaac1cd6f1cba58952e87f933
+  subpackages:
+  - internal/unsafeheader
+  - unix
+- name: golang.org/x/text
+  version: 23ae387dee1f90d29a23c0e87ee0b46038fbed0e
+  subpackages:
+  - secure/bidirule
+  - transform
+  - unicode/bidi
+  - unicode/norm
+- name: google.golang.org/genproto
+  version: 07506425bd67e1db3dd3ed11bc30bdd553c377f1
+  subpackages:
+  - googleapis/rpc/status
+- name: google.golang.org/grpc
+  version: 3de8449f8555faf9e7196c89469a4d980ee81f6e
+  subpackages:
+  - attributes
+  - backoff
+  - balancer
+  - balancer/base
+  - balancer/grpclb/state
+  - balancer/roundrobin
+  - binarylog/grpc_binarylog_v1
+  - codes
+  - connectivity
+  - credentials
+  - credentials/internal
+  - encoding
+  - encoding/proto
+  - grpclog
+  - internal
+  - internal/backoff
+  - internal/balancerload
+  - internal/binarylog
+  - internal/buffer
+  - internal/channelz
+  - internal/envconfig
+  - internal/grpclog
+  - internal/grpcrand
+  - internal/grpcsync
+  - internal/grpcutil
+  - internal/resolver/dns
+  - internal/resolver/passthrough
+  - internal/serviceconfig
+  - internal/status
+  - internal/syscall
+  - internal/transport
+  - keepalive
+  - metadata
+  - peer
+  - resolver
+  - serviceconfig
+  - stats
+  - status
+  - tap
+- name: google.golang.org/protobuf
+  version: 91eb7d3a63e95d55fda3459a9869f2bb8e878077
+  subpackages:
+  - encoding/prototext
+  - encoding/protowire
+  - internal/descfmt
+  - internal/descopts
+  - internal/detrand
+  - internal/encoding/defval
+  - internal/encoding/messageset
+  - internal/encoding/tag
+  - internal/encoding/text
+  - internal/errors
+  - internal/filedesc
+  - internal/filetype
+  - internal/flags
+  - internal/genid
+  - internal/impl
+  - internal/order
+  - internal/pragma
+  - internal/set
+  - internal/strs
+  - internal/version
+  - proto
+  - reflect/protoreflect
+  - reflect/protoregistry
+  - runtime/protoiface
+  - runtime/protoimpl
+  - types/known/anypb
+  - types/known/durationpb
+  - types/known/timestamppb
 - name: gopkg.in/bsm/ratelimit.v1
   version: db14e161995a5177acef654cb0dd785e8ee8bc22
 - name: gopkg.in/redis.v4
-  version: 60d35dfc25b19100aeb564a98f74700efb9ab92e
+  version: bb84d84aeaa98b3c5c887264031b294cc7ca860c
   subpackages:
   - internal
   - internal/consistenthash

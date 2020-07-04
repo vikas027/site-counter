@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net"
 	"net/http"
 	"os"
 
+	"github.com/newrelic/go-agent/v3/newrelic"
 	"gopkg.in/redis.v4"
 )
 
@@ -36,7 +38,7 @@ func allowedURI(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, fmt.Sprintln("Use one of these URIs:", allowedURI))
 }
 
-func hello(w http.ResponseWriter, r *http.Request) {
+func counter(w http.ResponseWriter, r *http.Request) {
 	hostname, _ := os.Hostname()
 	addrs, _ := net.LookupIP(hostname)
 
@@ -67,6 +69,18 @@ func main() {
 	})
 	http.HandleFunc("/", allowedURI)
 	http.HandleFunc("/health", health)
-	http.HandleFunc("/counter", hello)
+	if os.Getenv("NEW_RELIC_LICENSE_KEY") == "" {
+		http.HandleFunc("/counter", counter)
+	} else {
+		app, err := newrelic.NewApplication(
+			newrelic.ConfigAppName("site-counter"),
+			newrelic.ConfigLicense(os.Getenv("NEW_RELIC_LICENSE_KEY")),
+		)
+		if err != nil {
+			log.Panic("Error in using New Relic Agent")
+			os.Exit(1)
+		}
+		http.HandleFunc(newrelic.WrapHandleFunc(app, "/counter", counter))
+	}
 	http.ListenAndServe(":80", nil)
 }
