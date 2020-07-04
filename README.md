@@ -10,10 +10,15 @@ $ docker run -dit -p <host_port>:80 vikas027/site_counter
 
 # Sample Outputs
 ```bash
-$ curl localhost:<host_port>
-738a95d6709e  -  [172.17.0.2]  -  View Count:  1
-$ curl localhost:<host_port>
-738a95d6709e  -  [172.17.0.2]  -  View Count:  2
+$ curl localhost:8080/
+Use one of these URIs: [health counter]
+$
+$ curl localhost:<host_port>/health
+{"status":"ok"}
+$ curl localhost:<host_port>/counter
+a8c7e2217271  -  [172.17.0.2]  -  View Count:  1
+$ curl localhost:<host_port>/counter
+a8c7e2217271  -  [172.17.0.2]  -  View Count:  2
 ```
 
 # To Do
