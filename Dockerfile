@@ -26,12 +26,16 @@ RUN set -x && \
 RUN mkdir /data && chown redis:redis /data
 
 ## Install Glide
+# This works fine on docker v19.03.8 but not on dockerhub
+# RUN apk add --no-cache git curl && \
+#     curl -o glide.tar.gz -L "https://github.com/Masterminds/glide/releases/download/v${GLIDE_VERSION}/glide-v${GLIDE_VERSION}-linux-arm64.tar.gz" \
+#     && tar xf glide.tar.gz \
+#     && mv -v linux-arm64/glide /go/bin/glide \
+#     && rm -rf glide.tar.gz linux-arm64 \
+#     && glide --version
 RUN apk add --no-cache git curl && \
-    curl -o glide.tar.gz -L "https://github.com/Masterminds/glide/releases/download/v${GLIDE_VERSION}/glide-v${GLIDE_VERSION}-linux-arm64.tar.gz" \
-    && tar xf glide.tar.gz \
-    && mv -v linux-arm64/glide /go/bin/glide \
-    && rm -rf glide.tar.gz linux-arm64 \
-    && glide --version
+    curl https://glide.sh/get | sh && \
+    glide --version
 
 ## Install Counter with Redis Database
 WORKDIR /go/src/github.com/vikas027/go-redis-counter
